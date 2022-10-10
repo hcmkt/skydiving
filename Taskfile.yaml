@@ -1,0 +1,13 @@
+version: '3'
+
+env:
+  TAG_NAME: python-sky
+
+tasks:
+  build:
+    cmds:
+      - docker build ./ -t $TAG_NAME --no-cache
+
+  run:
+    cmds:
+      - docker run -v $(pwd)/src:/home/root --env-file $(pwd)/.env $TAG_NAME python3 main.py
