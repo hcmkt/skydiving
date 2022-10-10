@@ -1,14 +1,17 @@
-import os
-
 from flask import Flask, abort, request
-from linebot import LineBotApi, WebhookHandler
+from flask_cors import CORS
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage
+
+import functions
+from database import init_db
+from init import handler, line_bot_api
 
 app = Flask(__name__)
+app.config.from_object("config.Config")
+CORS(app, supports_credentials=True)
 
-line_bot_api = LineBotApi(os.getenv("CHANNEL_ACCESS_TOKEN"))
-handler = WebhookHandler(os.getenv("CHANNEL_SECRET"))
+init_db(app)
 
 
 @app.route("/callback", methods=["POST"])
@@ -33,6 +36,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
+
+
+@handler.add(FollowEvent)
+def handle_follow(event):
+    functions.add_user(event.source.user_id)
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="こんにちは"))
 
 
 if __name__ == "__main__":
