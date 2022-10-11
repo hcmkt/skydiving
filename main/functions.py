@@ -1,6 +1,8 @@
 import datetime
 import json
+import os
 
+import flask_sqlalchemy
 import ratelimit
 import requests
 
@@ -148,3 +150,58 @@ def get_settings(id: int) -> dict:
 
 def get_official_site_link() -> str:
     return "https://tokyoskydivingclub.jp"
+
+
+def get_settings_form_link() -> str:
+    return os.getenv("LIFF_URL")
+
+
+def validate_token(access_token: str) -> bool:
+    url = "https://api.line.me/oauth2/v2.1/verify"
+    params = {"access_token": access_token}
+    response = requests.get(url, params=params)
+    return response.status_code == 200
+
+
+def get_user_id(access_token: str) -> int:
+    url = "https://api.line.me/v2/profile"
+    headers = {"Authorization": "Bearer " + access_token}
+    response = requests.get(url, headers=headers)
+    return response.json()["userId"]
+
+
+def update_single(id: int, key: str, value: any) -> None:
+    user = db.session.query(User).filter_by(id=id).first()
+    setattr(user, key, value)
+    db.session.commit()
+
+
+def validate_multiple(inputs: list[any], candidates: list[any]) -> list[any]:
+    return list(set(inputs) & set(candidates))
+
+
+def update_multiple(id: int, model: flask_sqlalchemy.model.DefaultMeta, key: str, inputs: list[any], candidates: list[any]) -> None:
+    new = set(validate_multiple(inputs, candidates))
+    old = set(
+        [
+            getattr(record, key).strftime("%H:%M") if type(getattr(record, key)) is datetime.time else getattr(record, key)
+            for record in db.session.query(model).filter_by(user_id=id).all()
+        ]
+    )
+    add = new - old
+    delete = old - new
+    for element in add:
+        db.session.add(model(**{"user_id": id, key: element}))
+    for element in delete:
+        db.session.delete(db.session.query(model).filter_by(**{"user_id": id, key: element}).first())
+    db.session.commit()
+
+
+def update_all(json: dict) -> None:
+    id = get_user_id(json["accessToken"])
+    update_single(id, "notification", json["notification"])
+    update_single(id, "vacancy", json["vacancy"])
+    update_multiple(id, Photographer, "photographer", json["photographer"], ["有", "無"])
+    update_multiple(id, NotificationTime, "time", json["notificationTimes"], [datetime.time(hour=i).strftime("%H:%M") for i in range(24)])
+    update_multiple(id, ReservationTime, "time", json["reservationTimes"], ["08:15", "10:00", "12:00", "14:00"])
+    update_multiple(id, ReservationDay, "day", json["reservationDays"], ["月", "火", "水", "木", "金", "土", "日"])

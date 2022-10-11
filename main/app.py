@@ -1,6 +1,6 @@
 import locale
 
-from flask import Flask, abort, request
+from flask import Flask, abort, jsonify, request
 from flask_cors import CORS
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage
@@ -46,6 +46,8 @@ def handle_message(event):
         res = functions.get_formatted_custom_reservations(event.source.user_id, True)
     elif text == "公式":
         res = functions.get_official_site_link()
+    elif text == "設定":
+        res = functions.get_settings_form_link()
     else:
         return
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=res))
@@ -55,6 +57,24 @@ def handle_message(event):
 def handle_follow(event):
     functions.add_user(event.source.user_id)
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="こんにちは"))
+
+
+@app.route("/settings", methods=["GET"])
+def setttings():
+    req = request.args
+    access_token = req.get("token")
+    if not functions.validate_token(access_token):
+        return jsonify(), 500
+    user_id = functions.get_user_id(access_token)
+    settings = functions.get_settings(user_id)
+    return jsonify(settings)
+
+
+@app.route("/update", methods=["PUT"])
+def update():
+    json = request.get_json()
+    functions.update_all(json)
+    return ""
 
 
 if __name__ == "__main__":
