@@ -1,12 +1,15 @@
 import datetime
 import json
+import math
 import os
 
 import flask_sqlalchemy
 import ratelimit
 import requests
+from linebot.models import TextSendMessage
 
 from database import db
+from init import line_bot_api
 from models import NotificationTime, Photographer, ReservationDay, ReservationTime, User
 
 
@@ -205,3 +208,14 @@ def update_all(json: dict) -> None:
     update_multiple(id, NotificationTime, "time", json["notificationTimes"], [datetime.time(hour=i).strftime("%H:%M") for i in range(24)])
     update_multiple(id, ReservationTime, "time", json["reservationTimes"], ["08:15", "10:00", "12:00", "14:00"])
     update_multiple(id, ReservationDay, "day", json["reservationDays"], ["月", "火", "水", "木", "金", "土", "日"])
+
+
+def notify():
+    users = db.session.query(User).filter_by(notification=True).all()
+    now = datetime.datetime.now()
+    time = datetime.time(math.floor(now.hour + (now.minute + 30) / 60)).strftime("%H:%M")
+    for user in users:
+        notification_times = [time.time.strftime("%H:%M") for time in db.session.query(NotificationTime).filter_by(user_id=user.id).all()]
+        if time in notification_times:
+            formatted_reservations = get_formatted_custom_reservations(user.id, False)
+            line_bot_api.push_message(user.id, TextSendMessage(text=formatted_reservations))

@@ -1,6 +1,7 @@
 import locale
 
 from flask import Flask, abort, jsonify, request
+from flask_apscheduler import APScheduler
 from flask_cors import CORS
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import FollowEvent, MessageEvent, TextMessage, TextSendMessage
@@ -14,6 +15,10 @@ app.config.from_object("config.Config")
 CORS(app, supports_credentials=True)
 
 init_db(app)
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 locale.setlocale(locale.LC_TIME, "ja_JP.UTF-8")
 
@@ -75,6 +80,12 @@ def update():
     json = request.get_json()
     functions.update_all(json)
     return ""
+
+
+@scheduler.task("cron", id="do_job_1", minute="0")
+def notify():
+    with scheduler.app.app_context():
+        functions.notify()
 
 
 if __name__ == "__main__":
