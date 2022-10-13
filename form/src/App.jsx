@@ -35,7 +35,8 @@ function App() {
   useEffect(() => {
     liff
       .init({
-        liffId: import.meta.env.VITE_LIFF_ID
+        liffId: import.meta.env.VITE_LIFF_ID,
+        withLoginOnExternalBrowser: true,
       })
       .catch((e) => {
         toast.error('通信に失敗しました。');
