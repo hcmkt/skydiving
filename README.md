@@ -1,5 +1,5 @@
 # skydiving
-LINE BOT to inform you of [Tokyo Skydiving Club](https://tokyoskydivingclub.jp/) reservation status
+LINE BOT to inform of [Tokyo Skydiving Club](https://tokyoskydivingclub.jp/) reservation status
 
 ## Features
 - Obtaining reservation status
