@@ -210,7 +210,7 @@ def update_all(json: dict) -> None:
     update_multiple(id, ReservationDay, "day", json["reservationDays"], ["月", "火", "水", "木", "金", "土", "日"])
 
 
-def notify():
+def notify() -> None:
     users = db.session.query(User).filter_by(notification=True).all()
     now = datetime.datetime.now()
     time = datetime.time(math.floor(now.hour + (now.minute + 30) / 60)).strftime("%H:%M")
