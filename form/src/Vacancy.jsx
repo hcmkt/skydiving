@@ -1,5 +1,7 @@
-const Vacancy = (props) => {
-  const { vacancy, ref } = props;
+import { forwardRef } from "react";
+
+const Vacancy = forwardRef((props, ref) => {
+  const { vacancy} = props;
 
   return (
     <div className="pb-1.5">
@@ -15,6 +17,6 @@ const Vacancy = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Vacancy;

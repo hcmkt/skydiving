@@ -1,5 +1,7 @@
-const MultipleChoice = (props) => {
-  const { title, options, refs, defaults, classes, flag = false } = props;
+import { forwardRef } from "react";
+
+const MultipleChoice = forwardRef((props, ref) => {
+  const { title, options, defaults, classes, flag = false } = props;
 
   return (
     <div className="pb-1.5">
@@ -9,7 +11,7 @@ const MultipleChoice = (props) => {
           <label className={flag ? "w-1/4" : ""} key={i}>
             <input
               type="checkbox"
-              ref={refs.current[i]}
+              ref={ref.current[i]}
               defaultChecked={defaults?.includes(option)}
               className="mr-1 align-[-2px]"
             />
@@ -19,6 +21,6 @@ const MultipleChoice = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default MultipleChoice;

@@ -1,5 +1,7 @@
-const Notification = (props) => {
-  const { notification, ref } = props;
+import { forwardRef } from "react";
+
+const Notification = forwardRef((props, ref) => {
+  const { notification } = props;
 
   return (
     <div className="pb-1.5">
@@ -27,6 +29,6 @@ const Notification = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Notification;

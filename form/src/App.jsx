@@ -89,23 +89,23 @@ function App() {
             <MultipleChoice
               title="曜日"
               options={reservationDays}
-              refs={reservationDayRefs}
               defaluts={settings.reservationDays}
               classes="w-80"
+              ref={reservationDayRefs}
             />
             <MultipleChoice
               title="時刻"
               options={reservationTimes}
-              refs={reservationDayRefs}
               defaluts={settings.reservationTimes}
               classes="w-72"
+              ref={reservationTimeRefs}
             />
             <MultipleChoice
               title="カメラマン"
               options={photographers}
-              refs={photographerRefs}
               defaluts={settings.photographers}
               classes="w-28"
+              ref={photographerRefs}
             />
             <Vacancy
               vacancy={settings.vacancy}
@@ -121,10 +121,10 @@ function App() {
             <MultipleChoice
               title="時刻"
               options={notificationTimes}
-              refs={notificationTimeRefs}
               defaluts={settings.notificationTimes}
               classes="w-80 flex-wrap gap-y-0.5"
               flag={true}
+              ref={notificationTimeRefs}
             />
           </div>
         </div>
