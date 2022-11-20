@@ -44,22 +44,25 @@ function App() {
             <MultipleChoice
               title="曜日"
               options={reservationDays}
-              defaluts={settings.reservationDays}
-              classes="w-80"
+              defaults={settings.reservationDays}
+              stackProps={{w: "320px"}}
+              boxProps={{pb: "6px"}}
               ref={reservationDayRefs}
             />
             <MultipleChoice
               title="時刻"
               options={reservationTimes}
-              defaluts={settings.reservationTimes}
-              classes="w-72"
+              defaults={settings.reservationTimes}
+              stackProps={{w: "288px"}}
+              boxProps={{pb: "6px"}}
               ref={reservationTimeRefs}
             />
             <MultipleChoice
               title="カメラマン"
               options={photographers}
-              defaluts={settings.photographers}
-              classes="w-28"
+              defaults={settings.photographers}
+              stackProps={{w: "112px"}}
+              boxProps={{pb: "6px"}}
               ref={photographerRefs}
             />
             <Vacancy
@@ -76,9 +79,10 @@ function App() {
             <MultipleChoice
               title="時刻"
               options={notificationTimes}
-              defaluts={settings.notificationTimes}
-              classes="w-80 flex-wrap gap-y-0.5"
+              defaults={settings.notificationTimes}
               flag={true}
+              stackProps={{w: "320px", wrap: "wrap", rowGap: "4px"}}
+              boxProps={{pb: "6px"}}
               ref={notificationTimeRefs}
             />
           </div>
