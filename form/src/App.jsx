@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, createRef } from "react";
 import liff from "@line/liff";
 import axios from "axios";
 import toast, {Toaster} from "react-hot-toast"
+import MultipleChoice from "./MultipleChoice";
 import "./App.css";
 
 function App() {
@@ -54,34 +55,6 @@ function App() {
     });
   }, []);
 
-  const getMultipleForm = (title, options, refs, defaults, classes, flag=false) => {
-    return (
-      <div className="pb-1.5">
-        <p className="text-lg">{title}</p>
-        <div className={"flex justify-around mx-auto " + classes}>
-          {
-            (() => {
-              const res = [];
-              options.forEach((val, i) => {
-                res.push(
-                  <label className={flag ? "w-1/4" : ""} key={i}>
-                    <input
-                      type="checkbox"
-                      ref={refs.current[i]}
-                      defaultChecked={defaults?.includes(val)}
-                      className="mr-1 align-[-2px]"
-                    />
-                    {val}
-                  </label>)
-              });
-              return res;
-            })()
-          }
-        </div>
-      </div>
-    );
-  };
-
   const getVacancyForm = () => {
     return (
       <div className="pb-1.5">
@@ -98,7 +71,6 @@ function App() {
       </div>
     );
   };
-
 
   const getNotificationForm = () => {
     return (
@@ -167,15 +139,40 @@ function App() {
         <div className="pb-3">
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">予約</h2>
-            {getMultipleForm("曜日", reservationDays, reservationDayRefs, settings.reservationDays, "w-80")}
-            {getMultipleForm("時刻", reservationTimes, reservationTimeRefs, settings.reservationTimes, "w-72")}
-            {getMultipleForm("カメラマン", photographers, photographerRefs, settings.photographers, "w-28")}
+            <MultipleChoice
+              title="曜日"
+              options={reservationDays}
+              refs={reservationDayRefs}
+              defaluts={settings.reservationDays}
+              classes="w-80"
+            />
+            <MultipleChoice
+              title="時刻"
+              options={reservationTimes}
+              refs={reservationDayRefs}
+              defaluts={settings.reservationTimes}
+              classes="w-72"
+            />
+            <MultipleChoice
+              title="カメラマン"
+              options={photographers}
+              refs={photographerRefs}
+              defaluts={settings.photographers}
+              classes="w-28"
+            />
             {getVacancyForm()}
           </div>
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">通知</h2>
             {getNotificationForm()}
-            {getMultipleForm("時刻", notificationTimes, notificationTimeRefs, settings.notificationTimes, "w-80 flex-wrap gap-y-0.5", true)}
+            <MultipleChoice
+              title="時刻"
+              options={notificationTimes}
+              refs={notificationTimeRefs}
+              defaluts={settings.notificationTimes}
+              classes="w-80 flex-wrap gap-y-0.5"
+              flag={true}
+            />
           </div>
         </div>
         {getSubmitForm()}
