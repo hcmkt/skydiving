@@ -2,6 +2,10 @@ import { useEffect, useState, useRef, createRef } from "react";
 import liff from "@line/liff";
 import axios from "axios";
 import toast, {Toaster} from "react-hot-toast"
+import MultipleChoice from "./MultipleChoice";
+import Vacancy from "./Vacancy";
+import Notification from "./Notification";
+import Submission from "./Submission";
 import "./App.css";
 
 function App() {
@@ -54,91 +58,6 @@ function App() {
     });
   }, []);
 
-  const getMultipleForm = (title, options, refs, defaults, classes, flag=false) => {
-    return (
-      <div className="pb-1.5">
-        <p className="text-lg">{title}</p>
-        <div className={"flex justify-around mx-auto " + classes}>
-          {
-            (() => {
-              const res = [];
-              options.forEach((val, i) => {
-                res.push(
-                  <label className={flag ? "w-1/4" : ""} key={i}>
-                    <input
-                      type="checkbox"
-                      ref={refs.current[i]}
-                      defaultChecked={defaults?.includes(val)}
-                      className="mr-1 align-[-2px]"
-                    />
-                    {val}
-                  </label>)
-              });
-              return res;
-            })()
-          }
-        </div>
-      </div>
-    );
-  };
-
-  const getVacancyForm = () => {
-    return (
-      <div className="pb-1.5">
-        <p className="test-lg">最低枠数</p>
-        <div>
-          <input
-            type="text"
-            inputMode="numeric"
-            ref={vacancyRef}
-            defaultValue={settings.vacancy}
-            className="border text-center w-8 mt-1"
-          />
-        </div>
-      </div>
-    );
-  };
-
-
-  const getNotificationForm = () => {
-    return (
-      <div className="pb-1.5">
-        <p className="text-lg">通知</p>
-        <div className="flex justify-around mx-auto w-28">
-          <label key="on">
-            <input
-              type="radio"
-              ref={notificationRef}
-              name="notification"
-              defaultChecked={settings.notification}
-              className="mr-1 align-[-2px]"
-            />
-            ON
-          </label>
-          <label key="off">
-            <input
-              type="radio"
-              name="notification"
-              defaultChecked={!settings.notification}
-              className="mr-1 align-[-2px]"
-            />
-            OFF
-          </label>
-        </div>
-      </div>
-    );
-  };
-
-  const getSubmitForm = () => {
-    return (
-      <input
-        type="submit"
-        value="更新"
-        className="text-lg text-white bg-slate-500 py-1 px-8 rounded active:bg-slate-600"
-      />
-    );
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -167,18 +86,49 @@ function App() {
         <div className="pb-3">
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">予約</h2>
-            {getMultipleForm("曜日", reservationDays, reservationDayRefs, settings.reservationDays, "w-80")}
-            {getMultipleForm("時刻", reservationTimes, reservationTimeRefs, settings.reservationTimes, "w-72")}
-            {getMultipleForm("カメラマン", photographers, photographerRefs, settings.photographers, "w-28")}
-            {getVacancyForm()}
+            <MultipleChoice
+              title="曜日"
+              options={reservationDays}
+              defaluts={settings.reservationDays}
+              classes="w-80"
+              ref={reservationDayRefs}
+            />
+            <MultipleChoice
+              title="時刻"
+              options={reservationTimes}
+              defaluts={settings.reservationTimes}
+              classes="w-72"
+              ref={reservationTimeRefs}
+            />
+            <MultipleChoice
+              title="カメラマン"
+              options={photographers}
+              defaluts={settings.photographers}
+              classes="w-28"
+              ref={photographerRefs}
+            />
+            <Vacancy
+              vacancy={settings.vacancy}
+              ref={vacancyRef}
+            />
           </div>
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">通知</h2>
-            {getNotificationForm()}
-            {getMultipleForm("時刻", notificationTimes, notificationTimeRefs, settings.notificationTimes, "w-80 flex-wrap gap-y-0.5", true)}
+            <Notification
+              notification={settings.notification}
+              ref={notificationRef}
+            />
+            <MultipleChoice
+              title="時刻"
+              options={notificationTimes}
+              defaluts={settings.notificationTimes}
+              classes="w-80 flex-wrap gap-y-0.5"
+              flag={true}
+              ref={notificationTimeRefs}
+            />
           </div>
         </div>
-        {getSubmitForm()}
+        <Submission />
       </form>
       <Toaster />
     </div>
