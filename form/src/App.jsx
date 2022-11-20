@@ -5,6 +5,7 @@ import toast, {Toaster} from "react-hot-toast"
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
 import Notification from "./Notification";
+import Submission from "./Submission";
 import "./App.css";
 
 function App() {
@@ -56,16 +57,6 @@ function App() {
       getSettings();
     });
   }, []);
-
-  const getSubmitForm = () => {
-    return (
-      <input
-        type="submit"
-        value="更新"
-        className="text-lg text-white bg-slate-500 py-1 px-8 rounded active:bg-slate-600"
-      />
-    );
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -137,7 +128,7 @@ function App() {
             />
           </div>
         </div>
-        {getSubmitForm()}
+        <Submission />
       </form>
       <Toaster />
     </div>
