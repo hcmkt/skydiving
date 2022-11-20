@@ -4,6 +4,7 @@ import axios from "axios";
 import toast, {Toaster} from "react-hot-toast"
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
+import Notification from "./Notification";
 import "./App.css";
 
 function App() {
@@ -55,35 +56,6 @@ function App() {
       getSettings();
     });
   }, []);
-
-  const getNotificationForm = () => {
-    return (
-      <div className="pb-1.5">
-        <p className="text-lg">通知</p>
-        <div className="flex justify-around mx-auto w-28">
-          <label key="on">
-            <input
-              type="radio"
-              ref={notificationRef}
-              name="notification"
-              defaultChecked={settings.notification}
-              className="mr-1 align-[-2px]"
-            />
-            ON
-          </label>
-          <label key="off">
-            <input
-              type="radio"
-              name="notification"
-              defaultChecked={!settings.notification}
-              className="mr-1 align-[-2px]"
-            />
-            OFF
-          </label>
-        </div>
-      </div>
-    );
-  };
 
   const getSubmitForm = () => {
     return (
@@ -151,7 +123,10 @@ function App() {
           </div>
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">通知</h2>
-            {getNotificationForm()}
+            <Notification
+              notification={settings.notification}
+              ref={notificationRef}
+            />
             <MultipleChoice
               title="時刻"
               options={notificationTimes}
