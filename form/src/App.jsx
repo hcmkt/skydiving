@@ -3,6 +3,7 @@ import liff from "@line/liff";
 import axios from "axios";
 import toast, {Toaster} from "react-hot-toast"
 import MultipleChoice from "./MultipleChoice";
+import Vacancy from "./Vacancy";
 import "./App.css";
 
 function App() {
@@ -54,23 +55,6 @@ function App() {
       getSettings();
     });
   }, []);
-
-  const getVacancyForm = () => {
-    return (
-      <div className="pb-1.5">
-        <p className="test-lg">最低枠数</p>
-        <div>
-          <input
-            type="text"
-            inputMode="numeric"
-            ref={vacancyRef}
-            defaultValue={settings.vacancy}
-            className="border text-center w-8 mt-1"
-          />
-        </div>
-      </div>
-    );
-  };
 
   const getNotificationForm = () => {
     return (
@@ -160,7 +144,10 @@ function App() {
               defaluts={settings.photographers}
               classes="w-28"
             />
-            {getVacancyForm()}
+            <Vacancy
+              vacancy={settings.vacancy}
+              ref={vacancyRef}
+            />
           </div>
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">通知</h2>
