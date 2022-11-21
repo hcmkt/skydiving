@@ -67,6 +67,7 @@ function App() {
             />
             <Vacancy
               vacancy={settings.vacancy}
+              boxProps={{pb: "6px"}}
               ref={vacancyRef}
             />
           </div>
