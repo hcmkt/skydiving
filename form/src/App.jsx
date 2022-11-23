@@ -45,7 +45,7 @@ function App() {
               options={reservationDays}
               defaults={settings.reservationDays}
               stackProps={{w: "320px"}}
-              boxProps={{pb: "6px"}}
+              boxProps={{pb: "8px"}}
               ref={reservationDayRefs}
             />
             <MultipleChoice
@@ -53,7 +53,7 @@ function App() {
               options={reservationTimes}
               defaults={settings.reservationTimes}
               stackProps={{w: "288px"}}
-              boxProps={{pb: "6px"}}
+              boxProps={{pb: "8px"}}
               ref={reservationTimeRefs}
             />
             <MultipleChoice
@@ -61,7 +61,7 @@ function App() {
               options={photographers}
               defaults={settings.photographers}
               stackProps={{w: "112px"}}
-              boxProps={{pb: "6px"}}
+              boxProps={{pb: "8px"}}
               ref={photographerRefs}
             />
             <Vacancy
@@ -74,7 +74,7 @@ function App() {
             <Heading as="h2" fontSize="2xl" pb="8px">通知</Heading>
             <Notification
               notification={settings.notification}
-              boxProps={{pb: "6px"}}
+              boxProps={{pb: "8px"}}
               ref={notificationRef}
             />
             <MultipleChoice
@@ -83,7 +83,7 @@ function App() {
               defaults={settings.notificationTimes}
               flag={true}
               stackProps={{w: "320px", wrap: "wrap", rowGap: "4px"}}
-              boxProps={{pb: "6px"}}
+              boxProps={{pb: "8px"}}
               ref={notificationTimeRefs}
             />
           </Box>
