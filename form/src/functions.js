@@ -31,8 +31,7 @@ const fetchSettings = (setSettings) => () => {
 
 const getMultipleChoice = (options, refs) => options.filter((_, i) => refs.current[i].current.checked);
 
-const handleSubmit = (refs) => (e) => {
-  e.preventDefault();
+const handleSubmit = (refs) => () => {
   const data = {
     "accessToken": liff.getAccessToken(),
     "reservationDays": getMultipleChoice(reservationDays, refs.reservationDayRefs),

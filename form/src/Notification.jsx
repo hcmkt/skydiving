@@ -1,33 +1,19 @@
 import { forwardRef } from "react";
+import { Heading, Box, Stack, Radio, RadioGroup } from "@chakra-ui/react";
 
 const Notification = forwardRef((props, ref) => {
-  const { notification } = props;
+  const { notification, boxProps } = props;
 
   return (
-    <div className="pb-1.5">
-      <p className="text-lg">通知</p>
-      <div className="flex justify-around mx-auto w-28">
-        <label key="on">
-          <input
-            type="radio"
-            ref={ref}
-            name="notification"
-            defaultChecked={notification}
-            className="mr-1 align-[-2px]"
-          />
-          ON
-        </label>
-        <label key="off">
-          <input
-            type="radio"
-            name="notification"
-            defaultChecked={!notification}
-            className="mr-1 align-[-2px]"
-          />
-          OFF
-        </label>
-      </div>
-    </div>
+    <Box {...boxProps}>
+      <Heading as="h3" fontSize="lg" pb="2px">通知</Heading>
+      <RadioGroup>
+        <Stack direction="row" justify="space-around" mx="auto" w="120px">
+          <Radio value="on" defaultChecked={notification} ref={ref}>ON</Radio>
+          <Radio value="off" defaultChecked={!notification}>OFF</Radio>
+        </Stack>
+      </RadioGroup>
+    </Box>
   );
 });
 

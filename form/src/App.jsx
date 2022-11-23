@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Toaster } from "react-hot-toast"
+import { Box, Text, Heading, Button } from "@chakra-ui/react";
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
 import Notification from "./Notification";
-import Submission from "./Submission";
 import { reservationDays, reservationTimes, photographers, notificationTimes } from "./constants";
 import { declareMultipleRefs, initialize, fetchSettings, handleSubmit } from "./functions";
 import "./App.css";
@@ -35,58 +35,62 @@ function App() {
   };
 
   return (
-    <div className="text-center my-10">
-      <h1 className="text-3xl pb-3">設定</h1>
-      <form onSubmit={handleSubmit(refs)}>
-        <div className="pb-3">
-          <div className="pb-2.5">
-            <h2 className="text-2xl pb-2">予約</h2>
+    <Box textAlign="center" my="40px">
+      <Heading as="h1" fontSize="3xl" pb="12px">設定</Heading>
+        <Box pb="12px">
+          <Box pb="10px">
+            <Heading as="h2" fontSize="2xl" pb="8px">予約</Heading>
             <MultipleChoice
               title="曜日"
               options={reservationDays}
-              defaluts={settings.reservationDays}
-              classes="w-80"
+              defaults={settings.reservationDays}
+              stackProps={{w: "320px"}}
+              boxProps={{pb: "8px"}}
               ref={reservationDayRefs}
             />
             <MultipleChoice
               title="時刻"
               options={reservationTimes}
-              defaluts={settings.reservationTimes}
-              classes="w-72"
+              defaults={settings.reservationTimes}
+              stackProps={{w: "288px"}}
+              boxProps={{pb: "8px"}}
               ref={reservationTimeRefs}
             />
             <MultipleChoice
               title="カメラマン"
               options={photographers}
-              defaluts={settings.photographers}
-              classes="w-28"
+              defaults={settings.photographers}
+              stackProps={{w: "112px"}}
+              boxProps={{pb: "8px"}}
               ref={photographerRefs}
             />
             <Vacancy
               vacancy={settings.vacancy}
+              boxProps={{pb: "6px"}}
               ref={vacancyRef}
             />
-          </div>
-          <div className="pb-2.5">
-            <h2 className="text-2xl pb-2">通知</h2>
+          </Box>
+          <Box pb="10px">
+            <Heading as="h2" fontSize="2xl" pb="8px">通知</Heading>
             <Notification
               notification={settings.notification}
+              boxProps={{pb: "8px"}}
               ref={notificationRef}
             />
             <MultipleChoice
               title="時刻"
               options={notificationTimes}
-              defaluts={settings.notificationTimes}
-              classes="w-80 flex-wrap gap-y-0.5"
+              defaults={settings.notificationTimes}
               flag={true}
+              stackProps={{w: "320px", wrap: "wrap", rowGap: "4px"}}
+              boxProps={{pb: "8px"}}
               ref={notificationTimeRefs}
             />
-          </div>
-        </div>
-        <Submission />
-      </form>
+          </Box>
+        </Box>
+        <Button colorScheme="blue" onClick={handleSubmit(refs)}>更新</Button>
       <Toaster />
-    </div>
+    </Box>
   );
 }
 
