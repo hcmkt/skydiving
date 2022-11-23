@@ -75,6 +75,7 @@ function App() {
             <h2 className="text-2xl pb-2">通知</h2>
             <Notification
               notification={settings.notification}
+              boxProps={{pb: "6px"}}
               ref={notificationRef}
             />
             <MultipleChoice
