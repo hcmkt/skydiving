@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Toaster } from "react-hot-toast"
+import { Button } from "@chakra-ui/react";
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
 import Notification from "./Notification";
-import Submission from "./Submission";
 import { reservationDays, reservationTimes, photographers, notificationTimes } from "./constants";
 import { declareMultipleRefs, initialize, fetchSettings, handleSubmit } from "./functions";
 import "./App.css";
@@ -37,7 +37,6 @@ function App() {
   return (
     <div className="text-center my-10">
       <h1 className="text-3xl pb-3">設定</h1>
-      <form onSubmit={handleSubmit(refs)}>
         <div className="pb-3">
           <div className="pb-2.5">
             <h2 className="text-2xl pb-2">予約</h2>
@@ -89,8 +88,7 @@ function App() {
             />
           </div>
         </div>
-        <Submission />
-      </form>
+        <Button colorScheme="blue" onClick={handleSubmit(refs)}>更新</Button>
       <Toaster />
     </div>
   );
