@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
-import { Text, Checkbox, Stack, Box } from "@chakra-ui/react";
+import { Heading, Checkbox, Stack, Box } from "@chakra-ui/react";
 
 const MultipleChoice = forwardRef((props, ref) => {
   const { title, options, defaults, stackProps, boxProps, flag = false } = props;
 
   return (
     <Box {...boxProps}>
-      <Text fontSize="lg" pb="2px">{title}</Text>
+      <Heading as="h3" fontSize="lg" pb="2px">{title}</Heading>
         <Stack
           direction={["column, row"]}
           justify="space-around"

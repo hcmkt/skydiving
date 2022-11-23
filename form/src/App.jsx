@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Toaster } from "react-hot-toast"
-import { Button } from "@chakra-ui/react";
+import { Box, Text, Heading, Button } from "@chakra-ui/react";
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
 import Notification from "./Notification";
@@ -35,11 +35,11 @@ function App() {
   };
 
   return (
-    <div className="text-center my-10">
-      <h1 className="text-3xl pb-3">設定</h1>
-        <div className="pb-3">
-          <div className="pb-2.5">
-            <h2 className="text-2xl pb-2">予約</h2>
+    <Box textAlign="center" my="40px">
+      <Heading as="h1" fontSize="3xl" pb="12px">設定</Heading>
+        <Box pb="12px">
+          <Box pb="10px">
+            <Heading as="h2" fontSize="2xl" pb="8px">予約</Heading>
             <MultipleChoice
               title="曜日"
               options={reservationDays}
@@ -69,9 +69,9 @@ function App() {
               boxProps={{pb: "6px"}}
               ref={vacancyRef}
             />
-          </div>
-          <div className="pb-2.5">
-            <h2 className="text-2xl pb-2">通知</h2>
+          </Box>
+          <Box pb="10px">
+            <Heading as="h2" fontSize="2xl" pb="8px">通知</Heading>
             <Notification
               notification={settings.notification}
               boxProps={{pb: "6px"}}
@@ -86,11 +86,11 @@ function App() {
               boxProps={{pb: "6px"}}
               ref={notificationTimeRefs}
             />
-          </div>
-        </div>
+          </Box>
+        </Box>
         <Button colorScheme="blue" onClick={handleSubmit(refs)}>更新</Button>
       <Toaster />
-    </div>
+    </Box>
   );
 }
 

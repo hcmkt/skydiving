@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
-import { Text, Box, Stack, Radio, RadioGroup } from "@chakra-ui/react";
+import { Heading, Box, Stack, Radio, RadioGroup } from "@chakra-ui/react";
 
 const Notification = forwardRef((props, ref) => {
   const { notification, boxProps } = props;
 
   return (
     <Box {...boxProps}>
-      <Text fontSize="lg" pb="2px">通知</Text>
+      <Heading as="h3" fontSize="lg" pb="2px">通知</Heading>
       <RadioGroup>
         <Stack direction={["column", "row"]} justify="space-around" mx="auto" w="112px">
           <Radio value="on" defaultChecked={notification} ref={ref}>ON</Radio>
