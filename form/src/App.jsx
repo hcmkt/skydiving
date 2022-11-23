@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { Toaster } from "react-hot-toast"
-import { Box, Text, Heading, Button } from "@chakra-ui/react";
+import { Box, Heading, Button } from "@chakra-ui/react";
 import MultipleChoice from "./MultipleChoice";
 import Vacancy from "./Vacancy";
 import Notification from "./Notification";
 import { reservationDays, reservationTimes, photographers, notificationTimes } from "./constants";
 import { declareMultipleRefs, initialize, fetchSettings, handleSubmit } from "./functions";
-import "./App.css";
 
 function App() {
   const [settings, setSettings] = useState([]);
