@@ -8,7 +8,7 @@ const Notification = forwardRef((props, ref) => {
     <Box {...boxProps}>
       <Heading as="h3" fontSize="lg" pb="2px">通知</Heading>
       <RadioGroup>
-        <Stack direction={["column", "row"]} justify="space-around" mx="auto" w="112px">
+        <Stack direction="row" justify="space-around" mx="auto" w="120px">
           <Radio value="on" defaultChecked={notification} ref={ref}>ON</Radio>
           <Radio value="off" defaultChecked={!notification}>OFF</Radio>
         </Stack>

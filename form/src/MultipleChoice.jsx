@@ -8,7 +8,7 @@ const MultipleChoice = forwardRef((props, ref) => {
     <Box {...boxProps}>
       <Heading as="h3" fontSize="lg" pb="2px">{title}</Heading>
         <Stack
-          direction={["column, row"]}
+          direction={["row, column"]}
           justify="space-around"
           mx="auto"
           {...stackProps}
