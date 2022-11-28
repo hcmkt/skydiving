@@ -1,0 +1,29 @@
+name: Deploy
+run-name: Deploy
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Deploy to dokku - main
+        id: deploy-main
+        uses: idoberko2/dokku-deploy-github-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: 'hcmkt.dev'
+          app-name: 'skydiving-main'
+      - name: Deploy to dokku - form
+        id: deploy-form
+        uses: idoberko2/dokku-deploy-github-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: 'hcmkt.dev'
+          app-name: 'skydiving-form'
