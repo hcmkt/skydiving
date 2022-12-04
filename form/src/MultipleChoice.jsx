@@ -15,7 +15,7 @@ const MultipleChoice = forwardRef((props, ref) => {
         >
           {options.map((option, i) => (
             <Checkbox
-              key={i}
+              key={`${i}_${defaults === undefined ? 'a' : 'b'}`}
               ref={ref.current[i]}
               defaultChecked={defaults?.includes(option)}
               w={flag ? "25%" : ""}
