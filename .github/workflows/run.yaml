@@ -17,10 +17,12 @@ jobs:
       - name: Deploy to dokku - main
         uses: dokku/github-action@master
         with:
+          git_push_flags: --force
           git_remote_url: 'ssh://dokku@hcmkt.dev:22/skydiving-main'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy to dokku - form
         uses: dokku/github-action@master
         with:
+          git_push_flags: --force
           git_remote_url: 'ssh://dokku@hcmkt.dev:22/skydiving-form'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
