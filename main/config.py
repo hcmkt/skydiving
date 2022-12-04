@@ -2,14 +2,7 @@ import os
 
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{user}:{password}@{host}/{dbname}?charset=utf8".format(
-        **{
-            "user": os.getenv("DB_USER"),
-            "password": os.getenv("DB_PASSWORD"),
-            "host": os.getenv("DB_HOST"),
-            "dbname": os.getenv("DB_NAME"),
-        }
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     SCHEDULER_API_ENABLED = True

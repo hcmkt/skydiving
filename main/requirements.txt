@@ -28,10 +28,10 @@ Mako==1.2.3
 MarkupSafe==2.1.1
 multidict==6.0.2
 mypy-extensions==0.4.3
+mysqlclient==2.1.1
 pathspec==0.10.1
 platformdirs==2.5.2
 pycparser==2.21
-PyMySQL==1.0.2
 python-dateutil==2.8.2
 pytz==2022.4
 pytz-deprecation-shim==0.1.0.post0
