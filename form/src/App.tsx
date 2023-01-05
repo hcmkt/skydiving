@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import liff from "@line/liff";
-import "./App.css";
+import { FC, useEffect, useState } from 'react';
+import liff from '@line/liff';
+import './App.css';
 
-function App() {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+const App: FC = () => {
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     liff
       .init({
-        liffId: import.meta.env.VITE_LIFF_ID
+        liffId: import.meta.env.VITE_LIFF_ID,
       })
       .then(() => {
-        setMessage("LIFF init succeeded.");
+        setMessage('LIFF init succeeded.');
       })
       .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
+        setMessage('LIFF init failed.');
+        setError(`${e.stack?.split('\n')[0] ?? ''}`);
       });
   });
 
   return (
-    <div className="App">
+    <div className="app">
       <h1>create-liff-app</h1>
       {message && <p>{message}</p>}
       {error && (
@@ -38,6 +38,6 @@ function App() {
       </a>
     </div>
   );
-}
+};
 
 export default App;
