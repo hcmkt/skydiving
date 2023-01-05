@@ -1,5 +1,4 @@
 name: Deploy
-run-name: Deploy
 on:
   pull_request:
     branches:
