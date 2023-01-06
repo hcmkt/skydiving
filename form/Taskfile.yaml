@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  init:
+    cmds:
+      - cp db.json.example db.json
+
+  json-server:
+    cmds:
+      - json-server db.json
