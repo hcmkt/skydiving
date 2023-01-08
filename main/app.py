@@ -64,7 +64,7 @@ def handle_follow(event):
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="こんにちは"))
 
 
-@app.route("/settings", methods=["GET"])
+@app.route("/data", methods=["GET"])
 def setttings():
     req = request.args
     access_token = req.get("token")
@@ -75,7 +75,7 @@ def setttings():
     return jsonify(settings)
 
 
-@app.route("/update", methods=["PUT"])
+@app.route("/data", methods=["PUT"])
 def update():
     json = request.get_json()
     functions.update_all(json)
