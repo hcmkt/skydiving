@@ -35,9 +35,8 @@ const From: FC = () => {
     },
   });
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const url = isLocal() ? '/data' : '/update';
     const payload = isLocal() ? data : { token: liff.getAccessToken(), data };
-    void toast.promise(axios.put(url, payload), {
+    void toast.promise(axios.put('/data', payload), {
       loading: 'Loading',
       success: 'Success',
       error: 'Error',
