@@ -2,3 +2,4 @@
 **/.env
 .venv
 result.json
+.CONTAINER_ID
