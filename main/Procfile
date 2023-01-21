@@ -1,2 +1,0 @@
-release: python3 manage.py
-web: gunicorn app:app
